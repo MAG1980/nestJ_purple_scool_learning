@@ -1,9 +1,24 @@
 <h1>Мой проект по изучению NestJS</h1>
+<div>
+   <h3>Модули приложения:</h3>
+<ul>
+<li>
+    <h4>AppModule</h4>
+    <ul>
+<li>AuthModule</li>
+<li>ProductModule</li>
+<li>ReviewModule</li>
+<li>TopPageModule</li>
+</ul>
+</li>
+</ul>
+</div>
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
   <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
@@ -61,7 +76,8 @@ $ pnpm run test:cov
 
 ## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If
+you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
 ## Stay in touch
 
