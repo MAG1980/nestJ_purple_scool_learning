@@ -1,16 +1,17 @@
 import {Body, Controller, Delete, Get, HttpCode, Param, Patch, Post} from '@nestjs/common';
-import {ProductModel} from '../product/product.model/product.model';
-import {FindProductDto} from '../product/dto/find-product.dto';
 import {TopPageModel} from './top-page.model/top-page.model';
 import {FindTopPageDto} from './dto/find-top-page.dto';
+import {ConfigService} from '@nestjs/config';
 
 @Controller('top-page')
 export class TopPageController {
+    constructor(private readonly configService:ConfigService) {}
+
     //Название маршрута совпадает с названием метода-обработчика
     @Post('create')
     //Формируем тип DTO на основе ProductModel исключая свойство '_id', т.к. на этапе создания оно отсутствует.
     async create(@Body() dto: Omit<TopPageModel, '_id'>) {
-
+        this.configService.get('TEST')
     }
 
     @Get(':id')
