@@ -6,8 +6,7 @@ import {UpdateMovieDto} from './dto/update-movie.dto';
 
 @Controller('movies')
 export class MoviesController {
-  constructor(private readonly moviesService: MoviesService) {
-  }
+  constructor(private readonly moviesService: MoviesService) {}
 
   @Get()
   getAll(): Movie[] {

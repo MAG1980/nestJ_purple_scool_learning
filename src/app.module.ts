@@ -9,8 +9,7 @@ import { ReviewController } from './review/review.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { getMongoConfig } from './configs/mongo.config';
-import { MoviesController } from './movies/movies.controller';
-import { MoviesService } from './movies/movies.service';
+import { MoviesModule } from './movies/movies.module';
 
 @Module({
   imports: [
@@ -24,8 +23,9 @@ import { MoviesService } from './movies/movies.service';
     TopPageModule,
     ProductModule,
     ReviewModule,
+    MoviesModule,
   ],
-  controllers: [AppController, ReviewController, MoviesController],
-  providers: [AppService, MoviesService],
+  controllers: [AppController, ReviewController],
+  providers: [AppService],
 })
 export class AppModule {}
