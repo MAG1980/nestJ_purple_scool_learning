@@ -1,37 +1,38 @@
-import {ConfigService} from '@nestjs/config';
-import {TypegooseModule, TypegooseModuleOptions} from 'nestjs-typegoose';
+import { ConfigService } from '@nestjs/config';
+import { TypegooseModuleOptions } from 'nestjs-typegoose';
 
 /**
- * Возвращает объект с настройками подключения к БД MongoDB
+ * Возвращет объект с параметрами конфигурации БД MongoDB
  * @param configService
  */
-export const getMongoConfig = async (configService: ConfigService): Promise<TypegooseModuleOptions> => {
-    return {
-        uri: getMongoConnectionString(configService),
-        ...getMongoOptions(),
-    }
-}
+export const getMongoConfig = async (
+  configService: ConfigService,
+): Promise<TypegooseModuleOptions> => ({
+  uri: getMongoString(configService),
+  ...getMongoOptions(),
+});
 
 /**
- * Возвращает стоку подключения к БД MongoDB
- * @param configService
+ * Возвращает строку подключения к БД MongoDB (Mongo connection string)
+ * @param configService ConfigService
  */
-const getMongoConnectionString = (configService: ConfigService) =>
-    'mongodb://' +
-    configService.get('MONGO_LOGIN') +
-    ':' +
-    configService.get('MONGO_PASSWORD') +
-    '@' +
-    configService.get('MONGO_HOST') +
-    ':' +
-    configService.get('MONGO_PORT') +
-    '/' +
-    configService.get('MONGO_AUTH_DATABASE')
+const getMongoString = (configService: ConfigService) =>
+  'mongodb://' +
+  configService.get('MONGO_LOGIN') +
+  ':' +
+  configService.get('MONGO_PASSWORD') +
+  '@' +
+  configService.get('MONGO_HOST') +
+  ':' +
+  configService.get('MONGO_PORT') +
+  '/' +
+  configService.get('MONGO_AUTH_DATABASE');
 
 /**
- * Возвращает объект с дополнительными (необязательными) настройками подключения к БД
+ * Возвращает объект с параметрами настройки БД MongoDB
  */
 const getMongoOptions = () => ({
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
+  useNewUrlParser: true, //парсить строку подключения
+  // useCreateIndex: true, //создавать индексы. Больоьше не поддерживается. Включеена по умолчанию..
+  useUnifiedTopology: true, //использовать единую топологию
+});
