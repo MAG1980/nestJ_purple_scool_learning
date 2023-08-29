@@ -1,6 +1,7 @@
 import { Get, Injectable, NotFoundException } from '@nestjs/common';
 import { Movie } from './entities/movie.entiye';
 import { CreateMovieDto } from './dto/create-movie.dto';
+import {UpdateMovieDto} from './dto/update-movie.dto';
 
 @Injectable()
 export class MoviesService {
@@ -35,7 +36,7 @@ export class MoviesService {
     });
   }
 
-  patch(id: number, updateData) {
+  patch(id: number, updateData: UpdateMovieDto) {
     /* Получаем из хранилища данные, в которые планируем внести изменения, одновременно проверяя их на существование.
     Если они не существуют, автоматически срабатывет NotFoundException.*/
     const movie = this.getOne(id);

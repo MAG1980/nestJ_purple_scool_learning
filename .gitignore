@@ -68,3 +68,13 @@ lerna-debug.log*
 /mongo-data-4.4/journal/WiredTigerLog.0000000006
 /mongo-data-4.4/journal/WiredTigerPreplog.0000000001
 /mongo-data-4.4/journal/WiredTigerPreplog.0000000002
+/mongo-data-4.4/collection-0-1415280130394362476.wt
+/mongo-data-4.4/collection-2-1415280130394362476.wt
+/mongo-data-4.4/collection-4-1415280130394362476.wt
+/mongo-data-4.4/collection-7-1415280130394362476.wt
+/mongo-data-4.4/index-1-1415280130394362476.wt
+/mongo-data-4.4/index-3-1415280130394362476.wt
+/mongo-data-4.4/index-5-1415280130394362476.wt
+/mongo-data-4.4/index-6-1415280130394362476.wt
+/mongo-data-4.4/index-8-1415280130394362476.wt
+/mongo-data-4.4/index-9-1415280130394362476.wt
