@@ -1,7 +1,7 @@
 import { Get, Injectable, NotFoundException } from '@nestjs/common';
 import { Movie } from './entities/movie.entiye';
 import { CreateMovieDto } from './dto/create-movie.dto';
-import {UpdateMovieDto} from './dto/update-movie.dto';
+import { UpdateMovieDto } from './dto/update-movie.dto';
 
 @Injectable()
 export class MoviesService {
@@ -16,7 +16,7 @@ export class MoviesService {
   getOne(id: number): Movie {
     const movie = this.movies.find((movie) => movie.id === id);
     if (!movie) {
-      throw new NotFoundException(`Фильм с ${id} не найден!`);
+      throw new NotFoundException(`Фильм с id=${id} не найден!`);
     }
     return movie;
   }
