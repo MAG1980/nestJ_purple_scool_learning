@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MoviesService } from './movies.service';
-import { NotFoundException } from "@nestjs/common";
+import { NotFoundException } from '@nestjs/common';
 
 describe('MoviesService', () => {
   let service: MoviesService;
@@ -55,6 +55,56 @@ describe('MoviesService', () => {
         //Проверяем текст сообщения ошибки
         // expect(e.message).toEqual(`Фильм с id=111 не найден!`);
       }
+    });
+  });
+
+  describe('Тестирование метода remove', () => {
+    it('Фильм удаляется', () => {
+      //Помещаем в БД одну запись о фильме
+      service.create({
+        title: 'Film Name',
+        year: 2005,
+        genres: ['action', 'comedy'],
+      });
+      const allMoviesBeforeRemove = service.getAll();
+      service.remove(0);
+      const allMoviesAfterRemove = service.getAll();
+      //Сравниваем длину массива с фильмами до и после удаления одного фильма
+      expect(allMoviesAfterRemove.length).toBeLessThan(
+        allMoviesBeforeRemove.length,
+      );
+      // expect(allMoviesAfterRemove.length).toEqual(allMoviesBeforeRemove.length - 1);
+    });
+    it('Должна вернуться ошибка 404', () => {
+      try {
+        service.remove(0);
+      } catch (e) {
+        expect(e).toBeInstanceOf(NotFoundException);
+      }
+    });
+  });
+
+  describe('Тестирование метода create', () => {
+    it('Длина массива должна увеличиватья', () => {
+      const allMoviesBeforeCreateLength = service.getAll().length;
+      service.create({
+        title: 'Film Name',
+        year: 2005,
+        genres: ['action', 'comedy'],
+      });
+      const allMoviesAfterCreateLength = service.getAll().length;
+      expect(allMoviesAfterCreateLength).toBeGreaterThan(
+        allMoviesBeforeCreateLength,
+      );
+    });
+
+    it('Название созданного фильма должно совпадать', () => {
+      service.create({
+        title: 'Film Name',
+        year: 2005,
+        genres: ['action', 'comedy'],
+      });
+      expect(service.getOne(0).title).toEqual('Film Name');
     });
   });
 });
