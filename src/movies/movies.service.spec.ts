@@ -5,12 +5,19 @@ import { NotFoundException } from '@nestjs/common';
 describe('MoviesService', () => {
   let service: MoviesService;
 
+  //Выполняется перед запуском каждого теста
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [MoviesService],
     }).compile();
 
     service = module.get<MoviesService>(MoviesService);
+
+    service.create({
+      title: 'Film Name',
+      year: 2005,
+      genres: ['action', 'comedy'],
+    });
   });
 
   it('should be defined', () => {
@@ -45,7 +52,7 @@ describe('MoviesService', () => {
       // expect(service.getOne(0).id).toEqual(0);
     });
 
-    it('Должна возвращаться ошибка 404 ', function () {
+    it('Должна возвращаться ошибка NotFoundException ', function () {
       try {
         //Попытка получить заведомо несуществующую запись
         service.getOne(111);
@@ -75,7 +82,7 @@ describe('MoviesService', () => {
       );
       // expect(allMoviesAfterRemove.length).toEqual(allMoviesBeforeRemove.length - 1);
     });
-    it('Должна вернуться ошибка 404', () => {
+    it('Должна вернуться ошибка NotFoundException', () => {
       try {
         service.remove(0);
       } catch (e) {
@@ -107,4 +114,22 @@ describe('MoviesService', () => {
       expect(service.getOne(0).title).toEqual('Film Name');
     });
   });
+
+  describe('Тестирование метода patch', () => {
+    it('Фильм изменён', () => {
+      service.patch(0, { title: 'Changed Film Name' });
+      expect(service.getOne(0).title).toEqual('Changed Film Name');
+    });
+
+    it('Должна возвращаться ошибка NotFoundException', () => {
+      try {
+        service.patch(1000, { title: 'Changed Film Name' });
+      } catch (e) {
+        expect(e).toBeInstanceOf(NotFoundException);
+      }
+    });
+  });
+
+  //Выполняется после окончания всех тестов. Может быть использована для удаления фейковых записей.
+  aafterAll()
 });
