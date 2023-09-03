@@ -11,10 +11,13 @@ import {TypegooseModule} from 'nestjs-typegoose';
 import {getMongoConfig} from './configs/mongo.config';
 import {MoviesModule} from './movies/movies.module';
 import {TagsModule} from './tags/tags.module';
+import {TypeOrmModule} from '@nestjs/typeorm';
+import ormconfig from '@app/ormconfig';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    TypeOrmModule.forRoot(ormconfig),
     TypegooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
