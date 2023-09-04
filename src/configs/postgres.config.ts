@@ -1,5 +1,5 @@
-import { ConfigService } from '@nestjs/config';
-import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
+import {ConfigService} from '@nestjs/config';
+import {PostgresConnectionOptions} from 'typeorm/driver/postgres/PostgresConnectionOptions';
 
 export const getPostgresConfig = async (
   configService: ConfigService,
@@ -11,5 +11,9 @@ export const getPostgresConfig = async (
   username: configService.get('POSTGRES_DB_USERNAME'),
   password: configService.get('POSTGRES_DB_PASSWORD'),
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-  synchronize: true,
+  synchronize: false,
+  migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
+  cli: {
+    migrationsDir: 'src/migrations',
+  },
 });
