@@ -51,8 +51,16 @@ $ pnpm i typeorm
 позволяющий работать с TypeORM в NestJS (регистрировать TypeORM как модуль в NestJS):
 $ pnpm i @nestjs/typeorm
 
-Для настройки подключения TypeORM к БД служит файл src/ormconfig.ts.
-Также нужно импортировать TypeOrmModule.forRoot(ormconfig) в AppModule.
+Для настройки подключения TypeORM к БД служит файл src/ormConfig.ts.
+Также нужно импортировать TypeOrmModule.forRoot(ormConfig) в AppModule.
+Другим вариантом, позволяющим использовать переменные окружения,
+является регистрация TypeOrmModule с помощью метода forRootAsync:
+    TypeOrmModule.forRootAsync({
+        imports: [ConfigModule],
+        inject: [ConfigService],
+        useFactory: getPostgresConfig,
+    }),
+
 
 //Ошибка PostgresDriver.loadDependencies
 Для работы с БД Postgres в NestJS необходимо установить библиотеку:

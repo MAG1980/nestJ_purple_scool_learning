@@ -33,6 +33,6 @@ const getMongoString = (configService: ConfigService) =>
  */
 const getMongoOptions = () => ({
   useNewUrlParser: true, //парсить строку подключения
-  // useCreateIndex: true, //создавать индексы. Больоьше не поддерживается. Включеена по умолчанию..
+  // useCreateIndex: true, //создавать индексы. Больше не поддерживается. Включена по умолчанию..
   useUnifiedTopology: true, //использовать единую топологию
 });
