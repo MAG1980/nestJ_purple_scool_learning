@@ -10,4 +10,6 @@ export const getPostgresConfig = async (
   database: configService.get('POSTGRES_DB_NAME'),
   username: configService.get('POSTGRES_DB_USERNAME'),
   password: configService.get('POSTGRES_DB_PASSWORD'),
+  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+  synchronize: true,
 });

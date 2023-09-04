@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import * as process from 'process';
+import "reflect-metadata";
 
 if (!process.env.IS_TS_NODE) {
   require('module-alias/register.js');
