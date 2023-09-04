@@ -1,5 +1,4 @@
-import {DataSourceOptions} from 'typeorm';
-import * as process from 'process';
+import { DataSourceOptions } from 'typeorm';
 
 const ormconfig: DataSourceOptions = {
   type: 'postgres',
@@ -8,6 +7,6 @@ const ormconfig: DataSourceOptions = {
   username: 'scool',
   password: 'learning',
   database: 'purple',
-}
+};
 
 export default ormconfig;
