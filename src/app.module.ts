@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Inject, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
@@ -11,13 +11,16 @@ import { TypegooseModule } from 'nestjs-typegoose';
 import { getMongoConfig } from './configs/mongo.config';
 import { MoviesModule } from './movies/movies.module';
 import { TagsModule } from './tags/tags.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { getPostgresConfig } from '@app/configs/postgres.config';
 import { DatabaseModule } from './database/database.module';
+import { DataSource } from 'typeorm';
+import { DATA_SOURCE } from '@app/constants/constants';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    DatabaseModule,
     TypegooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -29,9 +32,10 @@ import { DatabaseModule } from './database/database.module';
     ReviewModule,
     MoviesModule,
     TagsModule,
-    DatabaseModule,
   ],
   controllers: [AppController, ReviewController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(@Inject(DATA_SOURCE) private readonly database: DataSource) {}
+}
