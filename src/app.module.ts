@@ -13,16 +13,11 @@ import { MoviesModule } from './movies/movies.module';
 import { TagsModule } from './tags/tags.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { getPostgresConfig } from '@app/configs/postgres.config';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
-    // TypeOrmModule.forRoot(ormConfig),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: getPostgresConfig,
-    }),
+    ConfigModule.forRoot({ isGlobal: true }),
     TypegooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -34,9 +29,9 @@ import { getPostgresConfig } from '@app/configs/postgres.config';
     ReviewModule,
     MoviesModule,
     TagsModule,
+    DatabaseModule,
   ],
   controllers: [AppController, ReviewController],
   providers: [AppService],
 })
-export class AppModule {
-}
+export class AppModule {}

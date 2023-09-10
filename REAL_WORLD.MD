@@ -112,6 +112,39 @@ ORM даёт возможность работать с таблицами БД 
 паттерна Репозиторий в сервисах проекта.
 
 --------------------------------------------
+    Создание модуля для подключения к БД и DataSource 
+--------------------------------------------
+Для работы с миграциями потребуется объект DataSource.
+Чтобы избежать дублирования кода создадим его в файле src/configs/postgres.config.ts
+Для получения доступа к переменным окружения (.env) установим пакет dotenv и вызовем его функцию config():
+$ pnpm i dotenv
+
+import { config } from 'dotenv';
+config();
+
+Создадим instance ConfigService (в AppModule ConfigModule должен быть подключён глобально - .forRoot({isGlobal: true})),
+чтобы с помощью него получать значения переменных окружения.
+Создадим объект с настройками подключения на основе переменных окружения
+const configOptions: PostgresConnectionOptions = {
+    type: configService.get('DB_TYPE'),
+    host: configService.get('DB_HOST'),
+    port: configService.get('DB_PORT'),
+    database: configService.get('POSTGRES_DB_NAME'),
+    username: configService.get('POSTGRES_DB_USERNAME'),
+    password: configService.get('POSTGRES_DB_PASSWORD'),
+    entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+    synchronize: false,
+    migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
+}
+
+Экспортируем фабричную функцию, которая будет возвращать объект с настройками подключения для использования в 
+настройках TypeOrmModule.forRootAsync(), импортируемого в DatabaseModule. 
+export const getPostgresConfig = async (
+  configService: ConfigService,
+): Promise<PostgresConnectionOptions> => (configOptions);
+
+В корневом каталоге создадим папку /migrations, в которой будут храниться файлы миграций. 
+--------------------------------------------
     Паттерн Репозиторий (Repository)
 --------------------------------------------
 TypeORM поддерживает шаблон проектирования репозитория,
