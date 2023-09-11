@@ -557,7 +557,7 @@ MONGO_AUTH_DATABASE=admin
 
 Вся бизнес-логика приложения должна быть описана в сервисах.
 
-Созать сервис можно командой Nest CLI:
+Создать сервис можно командой Nest CLI:
 $ nest g s product
 CREATE src/product/product.service.ts (91 bytes)
 CREATE src/product/product.service.spec.ts (467 bytes)

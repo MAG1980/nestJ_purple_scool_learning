@@ -73,6 +73,28 @@ $ pnpm i pg
             TypeORM
 ***********************************************************************************************
 
+-----------------------
+    Настройка CLI
+-----------------------
+https://typeorm.io/using-cli
+
+Миграции предназначены для выполнения в production-mode, т.е. в JavaScript.
+
+Чтобы не выполнять сборку проекта (преобразование файлов в JS) перед каждой CLI-командой,
+относящейся к миграциям,
+в TypeScript необходимо использовать ts-node в сочетании с typeorm для запуска файлов миграции .ts.
+    $ npx typeorm-ts-node-commonjs migration:run -- -d path-to-datasource-config
+где -d - alias для пути к файлу DataSource
+    path-to-datasource-config - путь к файлу, по умолчанию экспортирующему DataSource.
+
+Для удобства использования CLI необходимо добавить в package.json скрипты:
+    "orm": "npx typeorm-ts-node-commonjs -d ./src/configs/postgres.config.ts",  - чтобы ссылаться на typeorm в остальных 
+скриптах
+    "orm:generate": "npm run orm -- migration:generate ./src/migrations/migration"  - для генерации миграций
+    "orm:create": "npm run orm -- migration:create ./src/migrations/migration" - создание миграции
+    "orm:run": "npm run orm -- migration:run"   - запуск миграций
+    "orm:revert": "npm run orm -- migration:revert" - отмена последней миграции
+
 TypeORM использует декораторы:
 @Entity()   - сущность (Model в других ORM) - репрезентация таблицы в БД
 @PrimaryGeneratedColumn    - primary key autoincrement
@@ -285,3 +307,5 @@ TypeORM реализует паттерн Repository для работы с ко
     cli: {
         migrationsDir: 'src/migrations',
     },
+
+    
