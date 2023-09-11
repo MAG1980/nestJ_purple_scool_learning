@@ -80,6 +80,12 @@ https://typeorm.io/using-cli
 
 Миграции предназначены для выполнения в production-mode, т.е. в JavaScript.
 
+Команды typeorm migration:create и typeorm migration:generate будут создавать .ts файлы,
+если не передать "флаг" -o. 
+Команды migration:run и migration:revert работают только с .js файлами,
+поэтому, файлы typescript необходимо скомпилировать перед выполнением этих команд.
+В качестве альтернативы можно использовать ts-node в сочетании с typeorm для запуска .ts файлов миграции.
+
 Чтобы не выполнять сборку проекта (преобразование файлов в JS) перед каждой CLI-командой,
 относящейся к миграциям,
 в TypeScript необходимо использовать ts-node в сочетании с typeorm для запуска файлов миграции .ts.
@@ -88,12 +94,13 @@ https://typeorm.io/using-cli
     path-to-datasource-config - путь к файлу, по умолчанию экспортирующему DataSource.
 
 Для удобства использования CLI необходимо добавить в package.json скрипты:
-    "orm": "npx typeorm-ts-node-commonjs -d ./src/configs/postgres.config.ts",  - чтобы ссылаться на typeorm в остальных 
-скриптах
-    "orm:generate": "npm run orm -- migration:generate ./src/migrations/migration"  - для генерации миграций
-    "orm:create": "npm run orm -- migration:create ./src/migrations/migration" - создание миграции
-    "orm:run": "npm run orm -- migration:run"   - запуск миграций
-    "orm:revert": "npm run orm -- migration:revert" - отмена последней миграции
+"typeorm": "typeorm-ts-node-commonjs",
+"mg:create": "typeorm migration:create ./src/migrations/migration",                     - создание миграции
+"typeorm_ts": "npx typeorm-ts-node-commonjs  -d ./src/configs/postgres.config.ts",      - псевдоним для 
+                                                                                            использования typeorm в сочетании с ts-node
+"mg:generate": "npm run typeorm_ts -- migration:generate ./src/migrations/migration",   - генерация миграции
+"mg:run": "npm run typeorm_ts -- migration:run",                                        - выполнение миграции
+"mg:revert": "npm run typeorm_ts -- migration:revert"                                   - отмена последней миграции
 
 TypeORM использует декораторы:
 @Entity()   - сущность (Model в других ORM) - репрезентация таблицы в БД
