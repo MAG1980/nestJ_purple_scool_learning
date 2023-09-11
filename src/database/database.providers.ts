@@ -15,7 +15,7 @@ export const databaseProviders = [
         password: configService.getOrThrow('POSTGRES_DB_PASSWORD'),
         entities: [__dirname + '/../**/*.entity{.ts,.js}'],
         synchronize: false,
-        migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
+        migrations: [__dirname + '/../../migrations/**/*{.ts,.js}'],
       });
 
       return dataSource.initialize();
