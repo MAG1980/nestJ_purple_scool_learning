@@ -14,6 +14,7 @@ import { TagsModule } from './tags/tags.module';
 import { DatabaseModule } from './database/database.module';
 import { DataSource } from 'typeorm';
 import { DATA_SOURCE } from '@app/constants/constants';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { DATA_SOURCE } from '@app/constants/constants';
     ReviewModule,
     MoviesModule,
     TagsModule,
+    UserModule,
   ],
   controllers: [AppController, ReviewController],
   providers: [AppService],
